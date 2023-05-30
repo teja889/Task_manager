@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/favicon.ico" >
+  </head>
+  <body>
+    <div class="container">
+        <h1>Task Management System</h1>
+        <form id="task-form">
+  <label for="task-name">Task Name:</label>
+  <input type="text" id="task-name" required>
+
+  <label for="task-priority">Priority:</label>
+  <select id="task-priority">
+    <option value="low">Low</option>
+    <option value="medium">Medium</option>
+    <option value="high">High</option>
+  </select>
+
+  <label for="task-deadline">Deadline:</label>
+  <input type="date" id="task-deadline" required>
+
+  <input type="submit" value="Add Task">
+</form>
+
+<ul id="task-list" class="task-list">
+</ul>
+
+</div>
+
+<h6 class="h6"><strong>Design and developed by </strong><em>Teja velagala</em></h6>
+
+
+
+
+<script>
+// Retrieve elements from the HTML
+const taskForm = document.getElementById('task-form');
+const taskList = document.getElementById('task-list');
+
+// Add event listener for the form submit
+taskForm.addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  // Retrieve task details from the form
+  const taskNameInput = document.getElementById('task-name');
+  const taskPriorityInput = document.getElementById('task-priority');
+  const taskDeadlineInput = document.getElementById('task-deadline');
+
+  const taskName = taskNameInput.value;
+  const taskPriority = taskPriorityInput.value;
+  const taskDeadline = taskDeadlineInput.value;
+
+  // Create a new task item
+  const taskItem = document.createElement('li');
+  taskItem.innerHTML = `
+    <span>${taskName} (Priority: ${taskPriority}, Deadline: ${taskDeadline})</span>
+    <button class="delete-task">Delete</button>
+  `;
+
+  // Add event listener for delete button
+  const deleteButton = taskItem.querySelector('.delete-task');
+  deleteButton.addEventListener('click', function() {
+    taskItem.remove();
+  });
+
+  // Add the new task item to the task list
+  taskList.appendChild(taskItem);
+
+
+
+
+  // Clear the form inputs after adding the task
+taskNameInput.value = '';
+taskPriorityInput.value = 'low';
+taskDeadlineInput.value = '';
+});
+</script>
+</body>
+</html>
